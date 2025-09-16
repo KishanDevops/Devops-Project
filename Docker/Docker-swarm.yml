@@ -1,0 +1,41 @@
+# this is a bascliy use for to careat,run,steop,delete mutlipal contanier .
+version: '3.9' # versions
+
+services: # what service use docker service
+  todo: # conanier-name
+    image: kishan60/node-todo-test:lastest # image name
+    networks: 
+      - appnet
+
+  PostgerSQL-DB: # conanier-name
+    image: postgres:16 # image name
+    enviromnet: # Enavarmate valbles
+      POSTGRES_USER: kishan 
+      POSTGRES_PASSWORD: test@123
+      POSTGRES_DB: test_db
+    ports: # Ports
+      - "5432:5432"
+
+   # **************** swarm
+    deploy:
+      replicas: 3 # this is a create 3 data base with deffetnt nodes
+   # **************** swarm
+
+    networks:
+      - appnet
+    volumes: # attach vlouems
+      - db-data:/etc/data
+
+
+
+volumes: # creat vloumes
+  db-data:
+
+networks: # net work
+  appnet: # name
+   driver: overlay # type network
+
+
+# docker stack init
+# docker stack deploy
+# docker stack services :- status check stack
