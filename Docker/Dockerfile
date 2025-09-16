@@ -38,3 +38,5 @@ EXPOSE 8000
 
 CMD ["npm","run","dev"]
 #:- use for a run to commande no comandline
+
+#----- || Next docker-compose and docker swam || ----
