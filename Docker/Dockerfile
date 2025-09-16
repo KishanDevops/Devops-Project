@@ -39,4 +39,6 @@ EXPOSE 8000
 CMD ["npm","run","dev"]
 #:- use for a run to commande no comandline
 
-#----- || Next docker-compose and docker swam || ----
+#:- best partice for a compres to docker image seraur and size compres
+
+#-------------------- || Next docker-compose and docker swam || -------------------
