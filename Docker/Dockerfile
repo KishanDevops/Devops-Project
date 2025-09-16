@@ -18,5 +18,23 @@ WORKDIR /the/workdir/path
 RUN adduser -D kishan 
 
 USER kishan
-
 #:- basecaliy your defalt user is root is cmd is swich to user exmple Like in linux:- su kishan 
+
+SHELL ["/bin/sh", "-c"]
+#:- The SHELL is chnge your tarminal in docker /bin/bash to change /bin/sh
+
+ENV API_URL=https://api.test.com
+#:- this is a basecliy use for set envriment variable scerat vlrable
+
+COPY <PC_location> <Docker_contariner_lication>
+
+Add https://mystatebucketterrafrom01.s3.amazonaws.com/token.txt
+
+#:- copyisuser for copy to local to inside contariner 
+#:- Add is bascly sem but this is extara advanteges like fecth(copy) to network any file or folder 
+
+EXPOSE 8000
+#:- this is use for a 8000 to expose outside the container 
+
+CMD ["npm","run","dev"]
+#:- use for a run to commande no comandline
