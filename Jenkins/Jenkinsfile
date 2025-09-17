@@ -1,0 +1,42 @@
+// Declarative Pipeline
+// git webhook
+
+Pipeline{
+    agent any
+    
+    stages{
+        stage("Code"){
+            steps{
+                echo "This is cloning the code"
+                git url: "https://github.com/KishanDevops/node-todo-cicd-DevOps.git", barnch:"main"
+                echo "The codecling successfully"
+            }
+        }
+        stage("Build"){
+            steps{
+                echo "This is Build the code"
+                sh 'docker build . -t kishan60/node-todo-test:lastest' //Docker image build allready created
+            }
+        }
+        stage("Push to DockerHub"){
+            steps{
+                echo "This is Push the image to DockerHub"
+                // this is env Global credentials in Jenkins
+                withCredentials([usernamePassword(credetialsId: 'dockerHub', passwordVariable: 'dockerHubpassword', usernameVariable: 'dockerHubuser')]){
+                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                }
+                sh "docker push kishan60/node-todo-test:lastest"
+            }
+        }
+        stage("Deploy"){
+            steps{
+                echo "This is Deploy the code"
+                sh "docker compose up -d"
+            }
+        }
+    }
+}
+
+// viwe pipeline in jenkins so install pipeline view plugin GUI base viwe steps
+// next
+// this is a groovy snytax manage Jenkins > system > global trusted pipeline libraries
