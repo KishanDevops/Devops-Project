@@ -1,0 +1,53 @@
+// 1. change file name just Jenkinsfile
+
+//this is groovy and shared libery beased this file mini satep to 
+// congigar to you repo in a Jenkins mange > Global Trusted Pipeline Libraries
+
+// groovy and Shared libery
+// git webhook
+
+// https://github.com/KishanDevops/jenkins-shared-librari.git
+@Library("Shared") _
+pipeline{
+    agent any
+    stages{
+        stage("Hello"){
+            steps{
+                script{
+                    hello("kishan")
+                }
+            }
+        }
+        stage("Code"){
+            steps{
+               script{
+                    clone('https://github.com/KishanDevops/node-todo-cicd-DevOps.git','master')
+                }
+            }
+        }
+        stage("Build"){
+            steps{
+                script{
+                    docker_build("node-todo-test","lastest","kishan60") //Docker image build allready created
+                }
+            }
+        }
+        stage("Push to DockerHub"){
+            steps{
+                script{
+                    docker_push("node-todo-test","lastest","kishan60") //Docker image build allready created
+                }
+            }
+        }
+        stage("Deploy"){
+            steps{
+                script{
+                    docker_compose()
+                }
+            }
+        }
+    }
+}
+
+// viwe pipeline in jenkins so install pipeline view plugin GUI base viwe steps
+

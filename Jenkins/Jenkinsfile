@@ -1,14 +1,14 @@
 // Declarative Pipeline
 // git webhook
 
-Pipeline{
+pipeline{
     agent any
     
     stages{
         stage("Code"){
             steps{
                 echo "This is cloning the code"
-                git url: "https://github.com/KishanDevops/node-todo-cicd-DevOps.git", barnch:"main"
+                git url: 'https://github.com/KishanDevops/node-todo-cicd-DevOps.git', branch:'master'
                 echo "The codecling successfully"
             }
         }
@@ -22,10 +22,10 @@ Pipeline{
             steps{
                 echo "This is Push the image to DockerHub"
                 // this is env Global credentials in Jenkins
-                withCredentials([usernamePassword(credetialsId: 'dockerHub', passwordVariable: 'dockerHubpassword', usernameVariable: 'dockerHubuser')]){
-                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubpassword', usernameVariable: 'dockerHubuser')]){
+                sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
+                sh "docker push ${dockerHubUser}/node-todo-test:lastest"
                 }
-                sh "docker push kishan60/node-todo-test:lastest"
             }
         }
         stage("Deploy"){
